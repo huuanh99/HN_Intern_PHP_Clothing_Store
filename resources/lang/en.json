@@ -77,5 +77,6 @@
     "deny" : "Deny",
     "orderapprove" : "Order success",
     "orders" : "Orders",
-    "pending" : "Pending"
+    "pending" : "Pending",
+    "orderfail" : "Sorry, the product quantity is lower than you expect"
 }

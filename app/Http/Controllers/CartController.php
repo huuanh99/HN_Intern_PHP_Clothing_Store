@@ -67,7 +67,7 @@ class CartController extends Controller
             $cart = [];
             array_push($cart, $product);
             $request->session()->put('cart', $cart);
-            $request->session()->put('subtotal', $product->price * $request->quantity);
+            $request->session()->put('subtotal', $product->price);
         } else {
             $cart = $request->session()->get('cart');
             $check = false;

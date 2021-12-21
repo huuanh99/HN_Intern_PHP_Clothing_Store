@@ -24,6 +24,14 @@
                     </tr>
                     <tr>
                         <td>
+                            <label>{{ __('confirmpass') }}</label>
+                        </td>
+                        <td>
+                            <input required type="password" name="password_confirmation" class="medium" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                         </td>
                         <td>
                             <input type="submit" name="submit" Value="{{ __('update') }}" />
