@@ -20,9 +20,10 @@ class ProductController extends Controller
         if ($category == null) {
             return redirect()->route('index');
         }
-        $product = $category->products;
+        $childproducts = $category->childproducts;
+        $grandchildproducts = $category->grandchildproducts;
 
-        return view('user.productbycat', compact('category', 'product', 'categories'));
+        return view('user.productbycat', compact('category', 'childproducts', 'grandchildproducts', 'categories'));
     }
 
     public function showDetailProduct($id)
