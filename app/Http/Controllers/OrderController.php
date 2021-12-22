@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function showOrderView(Request $request)
     {
-        $orders = Order::where('user_id', Auth::user()->id)->get();
+        $orders = Order::where('user_id', Auth::id())->get();
         $categories = Category::where('status', 'active')->orderBy('id')->get();
 
         return view('user.order', compact('orders', 'categories'));
@@ -37,6 +37,15 @@ class OrderController extends Controller
 
     public function insertOrder(Request $request)
     {
+        $cart = $request->session()->get('cart');
+        foreach ($cart as $item) {
+            $product = Product::find($item->id);
+            if ($item->quantity > $product->quantity) {
+                $request->session()->flash('fail', __('orderfail'));
+
+                return redirect()->route('cart');
+            }
+        }
         $order = Order::create([
             'address' => $request->address,
             'phone' => $request->phone,
@@ -44,7 +53,6 @@ class OrderController extends Controller
             'user_id' => Auth::id(),
         ]);
         $order_id = $order->id;
-        $cart = $request->session()->get('cart');
         foreach ($cart as $item) {
             OrderDetail::create([
                 'order_id' => $order_id,
@@ -59,7 +67,7 @@ class OrderController extends Controller
         $request->session()->forget('cart');
         $request->session()->forget('subtotal');
         $request->session()->forget('count');
-        $request->session()->flash('message', __('ordersuccess'));
+        $request->session()->flash('success', __('ordersuccess'));
 
         return redirect()->route('cart');
     }

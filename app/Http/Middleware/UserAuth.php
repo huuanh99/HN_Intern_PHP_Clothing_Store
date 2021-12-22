@@ -17,8 +17,10 @@ class UserAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->status != config('const.active')) {
-            return redirect()->route('index');
+        if (Auth::user() && Auth::user()->status != config('const.active')) {
+            Auth::logout();
+
+            return redirect()->route('login');
         }
 
         return $next($request);

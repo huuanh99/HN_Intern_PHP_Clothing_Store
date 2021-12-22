@@ -1,6 +1,16 @@
 @extends('layout')
 @section('content')
 <div class="main">
+	<span class="success">
+        @if (Session::get('success') != null)
+        {{ Session::get('success') }}
+        @endif
+    </span>
+	<span class="fail">
+        @if (Session::get('fail') != null)
+        {{ Session::get('fail') }}
+        @endif
+    </span>
     <div class="content">
         <div class="cartoption">
             <div class="cartpage">

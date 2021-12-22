@@ -77,5 +77,6 @@
     "deny" : "Từ chối",
     "orderapprove" : "Đơn hàng thành công",
     "orders" : "Đơn hàng",
-    "pending" : "Đang xử lý"
+    "pending" : "Đang xử lý",
+    "orderfail" : "Xin lỗi quý khách, số lượng sản phẩm trong kho không đủ"
 }

@@ -62,11 +62,6 @@
                                 <p>{{ $item->content }}</p>
                                 <ul class="list-unstyled list-inline media-detail pull-left">
                                     <li><i class="fa fa-calendar"></i>{{ formatDate($item->created_at) }}</li>
-                                    <li><i class="fa fa-thumbs-up"></i>1</li>
-                                </ul>
-                                <ul class="list-unstyled list-inline media-detail pull-right">
-                                    <li class="like"><a href="">{{ __('like') }}</a></li>
-                                    <li class="like"><a href="">{{ __('reply') }}</a></li>
                                 </ul>
                             </div>
                         </div>            
