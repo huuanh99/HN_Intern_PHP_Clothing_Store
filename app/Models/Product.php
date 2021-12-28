@@ -28,4 +28,14 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class, 'product_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'product_id');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'rateable_id');
+    }
 }
