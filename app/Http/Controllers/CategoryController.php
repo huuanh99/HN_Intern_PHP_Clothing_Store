@@ -52,7 +52,6 @@ class CategoryController extends Controller
     {
         $data = $request->all();
         $this->categoryRepo->create($data);
-        $request->session()->flash('message', __('insertCategory'));
 
         return redirect()->route('catadd');
     }
@@ -62,7 +61,6 @@ class CategoryController extends Controller
         $id = $request->id;
         $data = $request->all();
         $this->categoryRepo->update($id, $data);
-        $request->session()->flash('message', __('updateCategory'));
         
         return redirect()->route('catedit', ['id' => $id]);
     }
