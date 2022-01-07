@@ -13,8 +13,8 @@ class Rating extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
-        'star',
+        'rateable_id',
+        'rating',
     ];
 
     public function user()
@@ -24,6 +24,6 @@ class Rating extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'rateable_id');
     }
 }
