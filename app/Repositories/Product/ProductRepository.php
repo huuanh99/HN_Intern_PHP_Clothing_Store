@@ -31,19 +31,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return true;
     }
 
-    public function showProductPriceLessThan200000()
+    public function showProductPrice($begin, $end)
     {
-        return Product::where('price', '<', '200000')->get();
-    }
-
-    public function showProductPriceBetween200000And500000()
-    {
-        return Product::where('price', '>=', '200000')->where('price', '<=', '500000')->get();
-    }
-
-    public function showProductPriceMoreThan500000()
-    {
-        return Product::where('price', '>=', '500000')->get();
+        return Product::where('price', '>=', $begin)->where('price', '<=', $end)->get();
     }
 
     public function showDetailProduct($id)

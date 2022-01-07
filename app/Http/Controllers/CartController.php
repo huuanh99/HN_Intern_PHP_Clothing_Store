@@ -4,13 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    protected $productRepo;
+    protected $categoryRepo;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepo, ProductRepositoryInterface $productRepo)
+    {
+        $this->categoryRepo = $categoryRepo;
+        $this->productRepo = $productRepo;
+    }
+
     public function showCartView()
     {
-        $categories = Category::where('status', 'active')->orderBy('id')->get();
+        $categories = $this->categoryRepo->getAll();
 
         return view('user.cart', compact('categories'));
     }
@@ -18,7 +29,7 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $id = $request->id;
-        $product = Product::find($id);
+        $product = $this->productRepo->find($id);
         if ($request->quantity > $product->quantity) {
             return redirect()->route('index');
         }
@@ -60,7 +71,7 @@ class CartController extends Controller
 
     public function addToCartHomeView(Request $request, $id)
     {
-        $product = Product::find($id);
+        $product = $this->productRepo->find($id);
         if ($request->session()->get('cart') == null) {
             $product->totalquantity = $product->quantity;
             $product->quantity = 1;
@@ -121,6 +132,9 @@ class CartController extends Controller
         $subtotal = 0;
         foreach ($cart as $cartItem) {
             if ($cartItem->id == $id) {
+                if ($request->quantity > $cartItem->totalquantity) {
+                    return redirect()->route('cart');
+                }
                 $cartItem->quantity = $request->quantity;
             }
             $subtotal += $cartItem->price * $cartItem->quantity;
