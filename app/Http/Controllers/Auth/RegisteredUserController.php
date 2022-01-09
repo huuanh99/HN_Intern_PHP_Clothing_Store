@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,13 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    protected $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
     public function display()
     {
         return view('auth.register');
@@ -34,7 +42,7 @@ class RegisteredUserController extends Controller
      */
     public function store(SignUpRequest $request)
     {
-        $user = User::create([
+        $user = $this->userRepo->create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,

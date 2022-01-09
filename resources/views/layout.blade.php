@@ -8,6 +8,7 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset('css/comment.css') }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ asset('css/flexslider.css') }}" rel='stylesheet' type='text/css' />
     <script src="{{ asset('js/jquerymain.js') }}"></script>
     <script src="{{ asset('js/script.js') }}" type="text/javascript"></script>
     <script type="text/javascript" src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
@@ -92,5 +93,9 @@
         @yield('content')
     </div>
 </body>
-
+    <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/font-awesome.js') }}" type="text/javascript"></script>
+    <script defer src="{{ asset('js/jquery.flexslider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/flexslider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/rating.js') }}"></script>
 </html>
