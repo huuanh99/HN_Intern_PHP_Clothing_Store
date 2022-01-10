@@ -5,8 +5,11 @@ return [
     'admin' => 2,
     'user' => 1,
     'active' => 'active',
-    'approve' => 'approve',
-    'pending' => 'pending',
+    'approve' => 'Approve',
+    'pending' => 'Pending',
+    'deny' => 'Deny',
     'lock' => 'lock',
     'websitename' => "Huu Anh Store",
+    'adminmail' => 'huuanhpro00@gmail.com',
+    'nameshorten' => 30,
 ];

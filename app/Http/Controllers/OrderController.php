@@ -88,7 +88,7 @@ class OrderController extends Controller
         $request->session()->forget('subtotal');
         $request->session()->forget('count');
         $request->session()->flash('success', __('ordersuccess'));
-        event(new PusherEvent('You just receive an order, check it out'));
+        event(new PusherEvent(Auth::user()));
 
         return redirect()->route('cart');
     }
