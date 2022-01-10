@@ -74,4 +74,10 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
             ->groupBy(DB::raw('Date(created_at)'))
             ->pluck('date');
     }
+
+    public function showOrderSaleToday()
+    {
+        return Order::whereDate('created_at', today())->where('status', 'approve')
+            ->sum('total');
+    }
 }

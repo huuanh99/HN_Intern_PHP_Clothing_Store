@@ -76,7 +76,16 @@
     "approve" : "Chấp thuận",
     "deny" : "Từ chối",
     "orderapprove" : "Đơn hàng thành công",
+    "orderdeny" : "Đơn hàng từ chối",
     "orders" : "Đơn hàng",
     "pending" : "Đang xử lý",
-    "orderfail" : "Xin lỗi quý khách, số lượng sản phẩm trong kho không đủ"
+    "orderfail" : "Xin lỗi quý khách, số lượng sản phẩm trong kho không đủ",
+    "chart" : "Biểu đồ",
+    "orderchart" : "Biểu đồ doanh thu",
+    "notification" : "Thông báo",
+    "ordermailsubject" : "Thông tin chi tiết đơn hàng của bạn",
+    "thanks" : "Cảm ơn quý khách",
+    "mailreportsubject" : "Doanh số bán hàng trong ngày hôm nay",
+    "dashboard" : "Bảng điều khiển",
+    "welcomeadmin" : "Chào mừng quản trị viên"
 }

@@ -76,7 +76,16 @@
     "approve" : "Approve",
     "deny" : "Deny",
     "orderapprove" : "Order success",
+    "orderdeny" : "Order deny",
     "orders" : "Orders",
     "pending" : "Pending",
-    "orderfail" : "Sorry, the product quantity is lower than you expect"
+    "orderfail" : "Sorry, the product quantity is lower than you expect",
+    "chart" : "Chart",
+    "orderchart" : "Order chart",
+    "notification" : "Notification",
+    "ordermailsubject" : "Your order information",
+    "thanks" : "Thanks",
+    "mailreportsubject" : "Your order sale today",
+    "dashboard" : "Dashboard",
+    "welcomeadmin" : "Welcome admin"
 }

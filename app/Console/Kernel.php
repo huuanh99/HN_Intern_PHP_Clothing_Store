@@ -16,12 +16,12 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected $commands = [
-        OrderCommand::class
+        OrderCommand::class,
     ];
 
     protected function schedule(Schedule $schedule)
     {
-       $schedule->command('order:report')->daily();
+        $schedule->command('order:report')->daily();
     }
 
     /**

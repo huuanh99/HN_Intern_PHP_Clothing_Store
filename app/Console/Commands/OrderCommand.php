@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Mail\MailOrderReport;
 use App\Models\Order;
+use App\Repositories\Order\OrderRepositoryInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -15,6 +16,7 @@ class OrderCommand extends Command
      * @var string
      */
     protected $signature = 'order:report';
+    protected $orderRepo;
 
     /**
      * The console command description.
@@ -28,9 +30,10 @@ class OrderCommand extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(OrderRepositoryInterface $orderRepo)
     {
         parent::__construct();
+        $this->orderRepo = $orderRepo;
     }
 
     /**
@@ -40,8 +43,7 @@ class OrderCommand extends Command
      */
     public function handle()
     {
-        $orders = Order::whereDate('created_at', today())->where('status', 'approve')
-            ->sum('total');
+        $orders = $this->orderRepo->showOrderSaleToday();
         Mail::to(config('const.adminmail'))->send(new MailOrderReport($orders));
     }
 }
