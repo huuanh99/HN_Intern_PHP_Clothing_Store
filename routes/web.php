@@ -54,7 +54,7 @@ Route::middleware(['locale', 'userauth'])->group(function () {
 
     Route::get('/productbycat/{id}', [ProductController::class, 'showProductByCategory'])
         ->name('productbycat');
-    Route::get('/productbyprice/{price}', [ProductController::class, 'showProductByPrice'])
+    Route::get('/productbyprice/{begin}/{end}', [ProductController::class, 'showProductByPrice'])
         ->name('productbyprice');
     Route::get('/details/{id}', [ProductController::class, 'showDetailProduct'])
         ->name('details');

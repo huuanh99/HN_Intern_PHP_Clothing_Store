@@ -55,9 +55,9 @@
                             <div class="dropdown">
                                 <li><a>{{ __('price') }}</a></li>
                                 <div class="dropdown-content">
-                                    <a href="{{ route('productbyprice',['price'  => 100000]) }}">{{ __('lower200') }}</a>
-                                    <a href="{{ route('productbyprice',['price'  => 300000]) }}">{{ __('200-500') }}</a>
-                                    <a href="{{ route('productbyprice',['price'  => 600000]) }}">{{ __('higher500') }}</a>
+                                    <a href="{{ route('productbyprice',['begin'  => 0, 'end' => 200000]) }}">{{ __('lower200') }}</a>
+                                    <a href="{{ route('productbyprice',['begin'  => 200000, 'end' => 500000]) }}">{{ __('200-500') }}</a>
+                                    <a href="{{ route('productbyprice',['begin'  => 500000, 'end' => 9999999999]) }}">{{ __('higher500') }}</a>
                                 </div>
                             </div>
                         </ul>

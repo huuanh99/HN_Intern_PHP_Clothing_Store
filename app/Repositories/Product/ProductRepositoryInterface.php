@@ -9,11 +9,7 @@ interface ProductRepositoryInterface extends RepositoryInterface
 
     public function restoreQuantity($id, $quantity);
 
-    public function showProductPriceLessThan200000();
-
-    public function showProductPriceBetween200000And500000();
-
-    public function showProductPriceMoreThan500000();
+    public function showProductPrice($begin, $end);
 
     public function showDetailProduct($id);
 
