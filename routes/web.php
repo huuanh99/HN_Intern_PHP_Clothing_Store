@@ -12,6 +12,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\OrderChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +100,9 @@ Route::prefix('admin')->middleware(['adminauth','locale'])->group(function () {
     Route::get('/approveorder', [OrderController::class, 'showOrderPendingView'])->name('showOrderPendingView');
     Route::get('/approveorder/{id}', [OrderController::class, 'approveOrder'])->name('approveOrder');
     Route::get('/denyorder/{id}', [OrderController::class, 'denyOrder'])->name('denyOrder');
-
+    Route::get('/orderchart', [OrderChartController::class, 'showOrderChartView'])->name('showOrderChart');
+    Route::get('/orderfail', [OrderController::class, 'showOrderFailView'])->name('orderfail');
+    
     Route::post('/addcategory', [CategoryController::class, 'addCategory'])->name('addcategory');
     Route::post('/editcategory', [CategoryController::class, 'editCategory'])->name('editcategory');
     Route::post('/addproduct', [ProductController::class, 'addProduct'])->name('addproduct');
