@@ -47,7 +47,7 @@
                         @endforeach
                     @endif
                 </table>
-                <table>
+                <table class="total">
                     <tr>
                         <th>{{ __('totalprice') }} : </th>
                         <td>{{ vndFormat(Session::get('subtotal')) }}</td>
