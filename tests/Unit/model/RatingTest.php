@@ -18,6 +18,7 @@ class RatingTest extends TestCase
      *
      * @return void
      */
+
     protected $rating;
 
     public function setup() : void
@@ -46,8 +47,8 @@ class RatingTest extends TestCase
     {
         $inputs = [
             'user_id',
-            'product_id',
-            'star',
+            'rateable_id',
+            'rating',
         ];
 
         $this->assertEquals($inputs, $this->rating->getFillable());
