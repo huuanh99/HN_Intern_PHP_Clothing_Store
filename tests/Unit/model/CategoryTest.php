@@ -56,6 +56,7 @@ class CategoryTest extends TestCase
         $inputs = [
             'name',
             'slug',
+            'status',
             'parent_id',
         ];
 

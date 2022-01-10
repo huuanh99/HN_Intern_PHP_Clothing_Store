@@ -64,6 +64,7 @@ class UserTest extends TestCase
             'phone',
             'image',
             'address',
+            'status',
             'password',
         ];
 

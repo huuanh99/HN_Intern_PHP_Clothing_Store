@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Willvincent\Rateable\Rating;
+use willvincent\Rateable\Rating;
 
 class RatingController extends Controller
 {

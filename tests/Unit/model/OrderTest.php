@@ -50,6 +50,7 @@ class OrderTest extends TestCase
             'user_id',
             'address',
             'phone',
+            'status',
             'total',
         ];
 

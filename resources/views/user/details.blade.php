@@ -19,6 +19,58 @@
                             </ul>
                         </div>
                     </section>
+                    <form class="form-horizontal poststars" id="addStar" action="{{ route('rating') }}" method="post">
+                        @csrf
+                        <input type="hidden" name="productId" value="{{ $product->id }}">
+                        <div class="form-group required">
+                            <div class="col-sm-12">
+                                <input class="star star-5" value="5" id="star-5" type="radio" name="star"/>
+                                <label class="star star-5" for="star-5"></label>
+                                <input class="star star-4" value="4" id="star-4" type="radio" name="star"/>
+                                <label class="star star-4" for="star-4"></label>
+                                <input class="star star-3" value="3" id="star-3" type="radio" name="star"/>
+                                <label class="star star-3" for="star-3"></label>
+                                <input class="star star-2" value="2" id="star-2" type="radio" name="star"/>
+                                <label class="star star-2" for="star-2"></label>
+                                <input class="star star-1" value="1" id="star-1" type="radio" name="star"/>
+                                <label class="star star-1" for="star-1"></label>
+                            </div>
+                        </div>
+                    </form>
+                    <div>
+                        <span class="numberstar">{{ $fivestar }}</span>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <br><br><br>
+                    <div>
+                        <span class="numberstar">{{ $fourstar }}</span>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <br>
+                    <div>
+                        <span class="numberstar">{{ $threestar }}</span>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <br>
+                    <div>
+                        <span class="numberstar">{{ $twostar }}</span>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <br>
+                    <div>
+                        <span class="numberstar">{{ $onestar }}</span>
+                        <i class="fa fa-star"></i>
+                    </div>
                 </div>
                 <div class="desc span_3_of_2">
                     <h2> {{ $product->name }} </h2>
