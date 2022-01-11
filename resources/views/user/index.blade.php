@@ -9,7 +9,7 @@
             @foreach ($products as $item)
             <div class="grid_1_of_4 images_1_of_4">
                 <a href="{{ route('details',['id'=>$item->id]) }}">
-                    <img height="200" src="{{ asset('uploads') }}/{{ $item->productImages[0]->path }}" alt="" /></a>
+                    <img width="200" height="200" src="{{ asset('uploads/' . $item->productImages[0]->path) }}" alt="" /></a>
                 <h2> {{ textShorten($item->name, config('const.nameshorten')) }} </h2>
                 <p>
                     <span class="price">{{ vndFormat($item->price) }}</span>
