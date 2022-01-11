@@ -20,4 +20,6 @@ interface OrderRepositoryInterface extends RepositoryInterface
     public function showOrderSaleInMonth();
 
     public function showOrderDayInMonth();
+
+    public function showOrderSaleToday();
 }
