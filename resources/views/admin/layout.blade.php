@@ -46,7 +46,10 @@
                             <span class="fa fa-comment"></span>
                             <span class="notif-count">0</span>
                         </button>
-                        <div class="dropdown-content-notify notifications">                 
+                        <div class="dropdown-content-notify notifications">
+                            @foreach ($notifications as $item)
+                                <a href="{{ route('showOrderPendingView') }}">{{ $item->content }}</a>
+                            @endforeach                   
                         </div>
                     </div>
                 </div>

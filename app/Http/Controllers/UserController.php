@@ -13,6 +13,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\User;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
@@ -25,15 +26,20 @@ class UserController extends Controller
     protected $categoryRepo;
     protected $userRepo;
     protected $productRepo;
+    protected $notificationRepo;
 
     public function __construct(
         CategoryRepositoryInterface $categoryRepo,
         UserRepositoryInterface $userRepo,
-        ProductRepositoryInterface $productRepo
+        ProductRepositoryInterface $productRepo,
+        NotificationRepositoryInterface $notificationRepo
     ) {
         $this->categoryRepo = $categoryRepo;
         $this->userRepo = $userRepo;
         $this->productRepo = $productRepo;
+        $this->notificationRepo = $notificationRepo;
+        $notifications = $this->notificationRepo->getAll();
+        view()->share('notifications', $notifications);
     }
 
     public function dashboard()

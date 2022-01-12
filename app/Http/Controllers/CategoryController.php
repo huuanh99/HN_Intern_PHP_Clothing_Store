@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddCategoryRequest;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     protected $categoryRepo;
+    protected $notificationRepo;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepo)
-    {
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepo,
+        NotificationRepositoryInterface $notificationRepo
+    ) {
         $this->categoryRepo = $categoryRepo;
+        $this->notificationRepo = $notificationRepo;
+        $notifications = $this->notificationRepo->getAll();
+        view()->share('notifications', $notifications);
     }
 
     public function showAddCategoryView()
