@@ -7,6 +7,8 @@ use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Notification\NotificationRepository;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Orderdetail\OrderdetailRepository;
@@ -70,6 +72,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             UserRepositoryInterface::class,
             UserRepository::class
+        );
+
+        $this->app->singleton(
+            NotificationRepositoryInterface::class,
+            NotificationRepository::class
         );
     }
 }

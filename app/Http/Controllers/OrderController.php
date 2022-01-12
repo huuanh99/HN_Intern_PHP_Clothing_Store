@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Orderdetail\OrderdetailRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
@@ -22,17 +23,22 @@ class OrderController extends Controller
     protected $categoryRepo;
     protected $orderdetailRepo;
     protected $productRepo;
+    protected $notificationRepo;
 
     public function __construct(
         OrderRepositoryInterface $orderRepo,
         CategoryRepositoryInterface $categoryRepo,
         OrderdetailRepositoryInterface $orderdetailRepo,
-        ProductRepositoryInterface $productRepo
+        ProductRepositoryInterface $productRepo,
+        NotificationRepositoryInterface $notificationRepo
     ) {
         $this->orderRepo = $orderRepo;
         $this->categoryRepo = $categoryRepo;
         $this->orderdetailRepo = $orderdetailRepo;
         $this->productRepo = $productRepo;
+        $this->notificationRepo = $notificationRepo;
+        $notifications = $this->notificationRepo->getAll();
+        view()->share('notifications', $notifications);
     }
 
     public function showOrderView(Request $request)
@@ -88,6 +94,9 @@ class OrderController extends Controller
         $request->session()->forget('subtotal');
         $request->session()->forget('count');
         $request->session()->flash('success', __('ordersuccess'));
+        $data = [];
+        $data['content'] = "You just receive an order from " . Auth::user()->name . ", check it out";
+        $this->notificationRepo->create($data);
         event(new PusherEvent(Auth::user()));
 
         return redirect()->route('cart');

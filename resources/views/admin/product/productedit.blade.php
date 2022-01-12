@@ -36,7 +36,7 @@
                         <td>
                             <select required id="select" name="category">
                                 <option>{{ __('selectcategory') }}</option>
-                                @foreach ($category as $item)
+                                @foreach ($categories as $item)
                                 <option
                                 @if ($product->category_id == $item->id)
                                         selected

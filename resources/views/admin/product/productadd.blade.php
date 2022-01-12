@@ -35,7 +35,7 @@
                         </td>
                         <td>
                             <select required id="select" name="category">
-                                @foreach ($category as $item)
+                                @foreach ($categories as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                                 

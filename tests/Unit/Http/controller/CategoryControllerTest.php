@@ -5,7 +5,9 @@ namespace Tests\Unit\Http\Controller;
 use App\Http\Controllers\CategoryController;
 use App\Http\Requests\AddCategoryRequest;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use Tests\TestCase;
 use Mockery;
 use Mockery\MockInterface;
@@ -19,14 +21,17 @@ use Illuminate\View\View;
 class CategoryControllerTest extends TestCase
 {
     protected $controller;
-    protected $repository;
+    protected $categoryRepo;
+    protected $notificationRepo;
     protected $formrequest;
 
     public function setup() : void
     {
         parent::setUp();
-        $this->repository = Mockery::mock(CategoryRepositoryInterface::class)->makePartial();
-        $this->controller = new CategoryController($this->repository);
+        $this->categoryRepo = Mockery::mock(CategoryRepositoryInterface::class)->makePartial();
+        $this->notificationRepo = Mockery::mock(NotificationRepositoryInterface::class)->makePartial();
+        $this->notificationRepo->shouldReceive('getAll')->andReturn(new Collection([new Notification()]));
+        $this->controller = new CategoryController($this->categoryRepo, $this->notificationRepo);
         $this->formrequest = Mockery::mock(AddCategoryRequest::class);
     }
 
@@ -39,7 +44,7 @@ class CategoryControllerTest extends TestCase
 
     public function testShowAddCategoryView()
     {
-        $this->repository->shouldReceive('getAll')->once()->andReturn(new Collection([new Category(), new Category()]));
+        $this->categoryRepo->shouldReceive('getAll')->once()->andReturn(new Collection([new Category()]));
         $view = $this->controller->showAddCategoryView();
         $this->assertInstanceOf(View::class, $view);
         $this->assertEquals('admin.category.catadd', $view->getName());
@@ -48,7 +53,7 @@ class CategoryControllerTest extends TestCase
 
     public function testShowListCategoryView()
     {
-        $this->repository->shouldReceive('getAll')->once()->andReturn(new Collection([new Category(), new Category()]));
+        $this->categoryRepo->shouldReceive('getAll')->once()->andReturn(new Collection([new Category()]));
         $view = $this->controller->showListCategoryView();
         $this->assertInstanceOf(View::class, $view);
         $this->assertEquals('admin.category.catlist', $view->getName());
@@ -57,8 +62,8 @@ class CategoryControllerTest extends TestCase
 
     public function testShowEditCategoryView()
     {
-        $this->repository->shouldReceive('getAll')->once()->andReturn(new Collection([new Category(), new Category()]));
-        $this->repository->shouldReceive('find')->once()->andReturn(new Category());
+        $this->categoryRepo->shouldReceive('getAll')->once()->andReturn(new Collection([new Category()]));
+        $this->categoryRepo->shouldReceive('find')->once()->andReturn(new Category());
         $view = $this->controller->showEditCategoryView(1);
         $this->assertInstanceOf(View::class, $view);
         $this->assertEquals('admin.category.catedit', $view->getName());
@@ -68,7 +73,7 @@ class CategoryControllerTest extends TestCase
 
     public function testDeleteCategory()
     {
-        $this->repository->shouldReceive('delete')->once();
+        $this->categoryRepo->shouldReceive('delete')->once();
         $response = $this->controller->deleteCategory(1);
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertEquals(route('catlist'), $response->headers->get('Location'));
@@ -77,7 +82,7 @@ class CategoryControllerTest extends TestCase
     public function testAddCategory()
     {
         $this->formrequest->shouldReceive('all')->once()->andReturn(new Category());
-        $this->repository->shouldReceive('create')->once();
+        $this->categoryRepo->shouldReceive('create')->once();
         $response = $this->controller->addCategory($this->formrequest);
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertEquals(route('catadd'), $response->headers->get('Location'));
@@ -86,7 +91,7 @@ class CategoryControllerTest extends TestCase
     public function testEditCategory()
     {
         $this->formrequest->shouldReceive('all')->once()->andReturn(new Category());
-        $this->repository->shouldReceive('update')->once();
+        $this->categoryRepo->shouldReceive('update')->once();
         $this->formrequest->id = 1;
         $response = $this->controller->editCategory($this->formrequest);
         $this->assertInstanceOf(RedirectResponse::class, $response);

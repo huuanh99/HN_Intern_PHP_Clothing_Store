@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Rating;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
 use Illuminate\Http\Request;
@@ -19,15 +20,20 @@ class ProductController extends Controller
     protected $productRepo;
     protected $categoryRepo;
     protected $productimageRepo;
+    protected $notificationRepo;
 
     public function __construct(
         CategoryRepositoryInterface $categoryRepo,
         ProductRepositoryInterface $productRepo,
-        ProductImageRepositoryInterface $productimageRepo
+        ProductImageRepositoryInterface $productimageRepo,
+        NotificationRepositoryInterface $notificationRepo
     ) {
         $this->categoryRepo = $categoryRepo;
         $this->productRepo = $productRepo;
         $this->productimageRepo = $productimageRepo;
+        $this->notificationRepo = $notificationRepo;
+        $notifications = $this->notificationRepo->getAll();
+        view()->share('notifications', $notifications);
     }
 
     public function showProductByCategory($id)
