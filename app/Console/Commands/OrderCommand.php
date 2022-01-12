@@ -15,7 +15,7 @@ class OrderCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'order:report';
+    public $signature = 'order:report';
     protected $orderRepo;
 
     /**
@@ -23,7 +23,7 @@ class OrderCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    public $description = 'Command description';
 
     /**
      * Create a new command instance.

@@ -87,5 +87,6 @@
     "thanks" : "Cảm ơn quý khách",
     "mailreportsubject" : "Doanh số bán hàng trong ngày hôm nay",
     "dashboard" : "Bảng điều khiển",
-    "welcomeadmin" : "Chào mừng quản trị viên"
+    "welcomeadmin" : "Chào mừng quản trị viên",
+    "notifyOrder" : "Bạn vừa nhận được đơn đặt hàng từ :name, vui lòng kiểm tra"
 }

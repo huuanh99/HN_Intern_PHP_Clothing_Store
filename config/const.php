@@ -12,4 +12,5 @@ return [
     'websitename' => "Huu Anh Store",
     'adminmail' => 'huuanhpro00@gmail.com',
     'nameshorten' => 30,
+    "orderNotificationType" => 1,
 ];
