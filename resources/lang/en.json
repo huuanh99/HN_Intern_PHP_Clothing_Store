@@ -87,5 +87,6 @@
     "thanks" : "Thanks",
     "mailreportsubject" : "Your order sale today",
     "dashboard" : "Dashboard",
-    "welcomeadmin" : "Welcome admin"
+    "welcomeadmin" : "Welcome admin",
+    "notifyOrder" : "You just receive an order from :name, check it out"
 }

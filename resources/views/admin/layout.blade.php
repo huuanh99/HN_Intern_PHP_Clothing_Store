@@ -48,7 +48,11 @@
                         </button>
                         <div class="dropdown-content-notify notifications">
                             @foreach ($notifications as $item)
-                                <a href="{{ route('showOrderPendingView') }}">{{ $item->content }}</a>
+                                @if ($item->type == config('const.orderNotificationType'))
+                                    <a href="{{ route('showOrderPendingView') }}">
+                                        {{ __('notifyOrder', ['name' => $item->user->name]) }}
+                                    </a>
+                                @endif
                             @endforeach                   
                         </div>
                     </div>

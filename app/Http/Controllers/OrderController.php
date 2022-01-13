@@ -71,8 +71,6 @@ class OrderController extends Controller
         foreach ($cart as $item) {
             $product = $this->productRepo->find($item->id);
             if ($item->quantity > $product->quantity) {
-                $request->session()->flash('fail', __('orderfail'));
-
                 return redirect()->route('cart');
             }
         }
@@ -93,9 +91,9 @@ class OrderController extends Controller
         $request->session()->forget('cart');
         $request->session()->forget('subtotal');
         $request->session()->forget('count');
-        $request->session()->flash('success', __('ordersuccess'));
         $data = [];
-        $data['content'] = "You just receive an order from " . Auth::user()->name . ", check it out";
+        $data['type'] = config('const.orderNotificationType');
+        $data['user_id'] = Auth::id();
         $this->notificationRepo->create($data);
         event(new PusherEvent(Auth::user()));
 
