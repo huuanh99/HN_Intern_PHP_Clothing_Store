@@ -12,7 +12,9 @@
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "mariuzzo/laravel-js-localization": "^1.8",
         "pusher/pusher-php-server": "^7.0",
+        "tightenco/ziggy": "^1.4",
         "willvincent/laravel-rateable": "^2.4"
     },
     "require-dev": {

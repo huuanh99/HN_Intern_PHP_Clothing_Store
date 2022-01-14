@@ -15,10 +15,12 @@ class PusherEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $notification;
 
-    public function __construct($message)
+    public function __construct($message, $notification)
     {
         $this->message = $message;
+        $this->notification = $notification;
     }
   
     public function broadcastOn()

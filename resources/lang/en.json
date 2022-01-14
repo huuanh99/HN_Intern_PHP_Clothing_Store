@@ -88,5 +88,6 @@
     "mailreportsubject" : "Your order sale today",
     "dashboard" : "Dashboard",
     "welcomeadmin" : "Welcome admin",
-    "notifyOrder" : "You just receive an order from :name, check it out"
+    "notifyOrder" : "You just receive an order from :name, check it out",
+    "readAllNotification" : "Mark all as read"
 }

@@ -38,7 +38,9 @@ class OrderController extends Controller
         $this->productRepo = $productRepo;
         $this->notificationRepo = $notificationRepo;
         $notifications = $this->notificationRepo->getAll();
+        $notificationNotClick = $this->notificationRepo->getNotificationNotClick();
         view()->share('notifications', $notifications);
+        view()->share('notificationNotClick', $notificationNotClick);
     }
 
     public function showOrderView(Request $request)
@@ -94,8 +96,8 @@ class OrderController extends Controller
         $data = [];
         $data['type'] = config('const.orderNotificationType');
         $data['user_id'] = Auth::id();
-        $this->notificationRepo->create($data);
-        event(new PusherEvent(Auth::user()));
+        $notification = $this->notificationRepo->create($data);
+        event(new PusherEvent(Auth::user(), $notification));
 
         return redirect()->route('cart');
     }

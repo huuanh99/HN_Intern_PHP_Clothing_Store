@@ -39,7 +39,9 @@ class UserController extends Controller
         $this->productRepo = $productRepo;
         $this->notificationRepo = $notificationRepo;
         $notifications = $this->notificationRepo->getAll();
+        $notificationNotClick = $this->notificationRepo->getNotificationNotClick();
         view()->share('notifications', $notifications);
+        view()->share('notificationNotClick', $notificationNotClick);
     }
 
     public function dashboard()
