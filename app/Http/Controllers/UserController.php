@@ -39,7 +39,9 @@ class UserController extends Controller
         $this->productRepo = $productRepo;
         $this->notificationRepo = $notificationRepo;
         $notifications = $this->notificationRepo->getAll();
+        $notificationNotClick = $this->notificationRepo->getNotificationNotClick();
         view()->share('notifications', $notifications);
+        view()->share('notificationNotClick', $notificationNotClick);
     }
 
     public function dashboard()
@@ -172,5 +174,33 @@ class UserController extends Controller
         $this->userRepo->update($request->id, $data);
 
         return redirect()->back();
+    }
+
+    public function showUser()
+    {
+        if (!Auth::user()->tokenCan('user:viewAll')) {
+            return response()->json([
+                'status_code' => 403,
+                'message' => 'Unauthorized'
+            ], 403);
+        }
+        
+        return response()->json([
+            'data' => $this->userRepo->getAll(),
+        ], 200);
+    }
+
+    public function showUserAuth()
+    {
+        if (!Auth::user()->tokenCan('user:view')) {
+            return response()->json([
+                'status_code' => 403,
+                'message' => 'Unauthorized'
+            ], 403);
+        }
+
+        return response()->json([
+            'data' => Auth::user(),
+        ], 200);
     }
 }

@@ -17,6 +17,7 @@ class CreateNotificationTable extends Migration
             $table->id();
             $table->integer('type');
             $table->bigInteger('user_id')->unsigned();
+            $table->integer('click')->default(false);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');

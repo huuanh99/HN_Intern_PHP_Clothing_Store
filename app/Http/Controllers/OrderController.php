@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\PusherEvent;
 use App\Mail\MailOrderDetail;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -38,7 +39,9 @@ class OrderController extends Controller
         $this->productRepo = $productRepo;
         $this->notificationRepo = $notificationRepo;
         $notifications = $this->notificationRepo->getAll();
+        $notificationNotClick = $this->notificationRepo->getNotificationNotClick();
         view()->share('notifications', $notifications);
+        view()->share('notificationNotClick', $notificationNotClick);
     }
 
     public function showOrderView(Request $request)
@@ -94,8 +97,8 @@ class OrderController extends Controller
         $data = [];
         $data['type'] = config('const.orderNotificationType');
         $data['user_id'] = Auth::id();
-        $this->notificationRepo->create($data);
-        event(new PusherEvent(Auth::user()));
+        $notification = $this->notificationRepo->create($data);
+        event(new PusherEvent(Auth::user(), $notification));
 
         return redirect()->route('cart');
     }
@@ -149,5 +152,75 @@ class OrderController extends Controller
         $orderdetails = $order->orderDetails;
 
         return view('admin.order.orderdetail', compact('orderdetails'));
+    }
+
+    public function showOrder()
+    {
+        if (!Auth::user()->tokenCan('order:viewAll')) {
+            return response()->json([
+                'status_code' => 403,
+                'message' => 'Unauthorized'
+            ], 403);
+        }
+
+        return response()->json([
+            'data' => $this->orderRepo->getAll(),
+        ], 200);
+    }
+
+    public function showOrderByUser()
+    {
+        if (!Auth::user()->tokenCan('order:view')) {
+            return response()->json([
+                'status_code' => 403,
+                'message' => 'Unauthorized'
+            ], 403);
+        }
+
+        return response()->json([
+            'data' => Auth::user()->orders,
+        ], 200);
+    }
+
+    public function insertOrderApi(Request $request)
+    {
+        if (!Auth::user()->tokenCan('order:insert')) {
+            return response()->json([
+                'status_code' => 403,
+                'message' => 'Unauthorized'
+            ], 403);
+        }
+        $cart = $request->cart;
+        foreach ($cart as $item) {
+            $product = $this->productRepo->find($item['id']);
+            if ($item['quantity'] > $product->quantity) {
+                return response()->json([
+                    'status_code' => 404,
+                    'message' => 'Quantity is more than product quantity'
+                ], 403);
+            }
+        }
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $order = $this->orderRepo->create($data);
+        $order_id = $order->id;
+        foreach ($cart as $item) {
+            $data = [];
+            $data['order_id'] = $order_id;
+            $data['product_id'] = $item['id'];
+            $data['quantity'] = $item['quantity'];
+            $data['price'] = $item['price'];
+            $this->orderdetailRepo->create($data);
+            $this->productRepo->updateQuantity($item['id'], $item['quantity']);
+        }
+        $data = [];
+        $data['type'] = config('const.orderNotificationType');
+        $data['user_id'] = Auth::id();
+        $notification = $this->notificationRepo->create($data);
+        event(new PusherEvent(Auth::user(), $notification));
+
+        return response()->json([
+            'data' => $order,
+        ], 200);
     }
 }

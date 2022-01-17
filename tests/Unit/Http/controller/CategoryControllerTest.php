@@ -31,6 +31,7 @@ class CategoryControllerTest extends TestCase
         $this->categoryRepo = Mockery::mock(CategoryRepositoryInterface::class)->makePartial();
         $this->notificationRepo = Mockery::mock(NotificationRepositoryInterface::class)->makePartial();
         $this->notificationRepo->shouldReceive('getAll')->andReturn(new Collection([new Notification()]));
+        $this->notificationRepo->shouldReceive('getNotificationNotClick')->andReturn(3);
         $this->controller = new CategoryController($this->categoryRepo, $this->notificationRepo);
         $this->formrequest = Mockery::mock(AddCategoryRequest::class);
     }

@@ -24,4 +24,21 @@ class CommentController extends Controller
         
         return redirect()->back();
     }
+
+    public function commentProductApi(Request $request)
+    {
+        if (!Auth::user()->tokenCan('comment:post')) {
+            return response()->json([
+                'status_code' => 403,
+                'message' => 'Unauthorized'
+            ], 403);
+        }
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $comment = $this->commentRepo->create($data);
+        
+        return response()->json([
+            'data' => $comment,
+        ], 200);
+    }
 }

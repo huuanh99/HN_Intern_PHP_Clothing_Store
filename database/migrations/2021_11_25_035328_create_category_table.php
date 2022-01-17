@@ -18,6 +18,7 @@ class CreateCategoryTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->bigInteger('parent_id')->unsigned()->nullable();
+            $table->string('status')->default(config('const.active'));
             $table->timestamps();
             $table->foreign('parent_id')->references('id')->on('categories')
                 ->onUpdate('cascade')->onDelete('cascade');

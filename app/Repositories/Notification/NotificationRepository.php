@@ -16,6 +16,16 @@ class NotificationRepository extends BaseRepository implements NotificationRepos
 
     public function getAll()
     {
-        return Notification::orderBy('id', 'desc')->take(10)->get();
+        return Notification::orderBy('id', 'desc')->take(8)->get();
+    }
+
+    public function getNotificationNotClick()
+    {
+        return Notification::where('click', false)->count();
+    }
+
+    public function markAllAsRead()
+    {
+        Notification::where('click', false)->update(['click' => true]);
     }
 }
