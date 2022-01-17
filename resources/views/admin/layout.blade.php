@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Admin</title>
+    @routes()
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/reset.css') }}" media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/text.css') }}" media="screen" />
@@ -26,6 +27,7 @@
     <script src="{{ asset('js/admin/pusher.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/pusher.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/font-awesome.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/messages.js') }}" type="text/javascript"></script>
 </head>
 
 <body>
@@ -38,26 +40,31 @@
                         <div class="dropdown-content">
                             <a href="{{ route('changeLanguage',['language' => 'en']) }}">{{ __('english') }}</a>
                             <a href="{{ route('changeLanguage',['language' => 'vi']) }}">{{ __('vietnamese') }}</a>
+                            <input type="hidden" value="{{ Session::get('language') }}" id="language">
                         </div>
                     </div>
                     <div class="dropdown">
                         <button class="dropbtn notificationsToggle">
-                            <i data-count="0" class="fa fa-bell"></i>
+                            <i data-count="{{ $notificationNotClick }}" class="fa fa-bell"></i>
                             <span class="fa fa-comment"></span>
-                            <span class="notif-count">0</span>
+                            <span class="notif-count">{{ $notificationNotClick }}</span>
                         </button>
                         <div class="dropdown-content-notify notifications">
                             @foreach ($notifications as $item)
                                 @if ($item->type == config('const.orderNotificationType'))
-                                    <a href="{{ route('showOrderPendingView') }}">
+                                    <a href="{{ route('readNotification', ['id' => $item->id]) }}">
                                         {{ __('notifyOrder', ['name' => $item->user->name]) }}
                                     </a>
                                 @endif
                             @endforeach                   
                         </div>
                     </div>
+                    <button class="dropbtn">
+                        <a href="{{ route('readAllNotification') }}">
+                            {{ __('readAllNotification') }}
+                        </a>
+                    </button>
                 </div>
-                
                 <div class="floatright">
                     <div class="floatleft marginleft10">
                         <ul class="inline-ul floatleft">
@@ -127,6 +134,5 @@
     </div>
     <div class="clear">
     </div>
- 
 </body>
 </html>

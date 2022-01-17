@@ -48,6 +48,7 @@ class OrderControllerTest extends TestCase
         $this->orderdetailRepo = Mockery::mock(OrderdetailRepositoryInterface::class)->makePartial();
         $this->notificationRepo = Mockery::mock(NotificationRepositoryInterface::class)->makePartial();
         $this->notificationRepo->shouldReceive('getAll')->andReturn(new Collection([new Notification()]));
+        $this->notificationRepo->shouldReceive('getNotificationNotClick')->andReturn(3);
         $this->user = Mockery::mock(User::class);
         $this->controller = new OrderController(
             $this->orderRepo,

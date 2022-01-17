@@ -33,7 +33,9 @@ class ProductController extends Controller
         $this->productimageRepo = $productimageRepo;
         $this->notificationRepo = $notificationRepo;
         $notifications = $this->notificationRepo->getAll();
+        $notificationNotClick = $this->notificationRepo->getNotificationNotClick();
         view()->share('notifications', $notifications);
+        view()->share('notificationNotClick', $notificationNotClick);
     }
 
     public function showProductByCategory($id)

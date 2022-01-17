@@ -20,7 +20,9 @@ class CategoryController extends Controller
         $this->categoryRepo = $categoryRepo;
         $this->notificationRepo = $notificationRepo;
         $notifications = $this->notificationRepo->getAll();
+        $notificationNotClick = $this->notificationRepo->getNotificationNotClick();
         view()->share('notifications', $notifications);
+        view()->share('notificationNotClick', $notificationNotClick);
     }
 
     public function showAddCategoryView()

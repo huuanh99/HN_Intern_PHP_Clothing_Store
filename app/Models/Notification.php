@@ -14,6 +14,7 @@ class Notification extends Model
     protected $fillable = [
         'type',
         'user_id',
+        'click',
     ];
 
     public function user()
